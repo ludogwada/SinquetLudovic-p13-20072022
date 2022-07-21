@@ -1,0 +1,30 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    
+    &__link{
+        display: flex;
+        align-items: center;
+        
+        &__logo{
+            max-width: 100%;
+            width: 200px;
+        }
+    }
+    &__login{
+        display: flex;
+        text-decoration: none;
+        color: $colorBlue;
+        margin-right: 0.5rem;
+        font-weight: bold;
+        :hover{
+            text-decoration: underline;
+        }
+        
+        &__text{
+            margin-left: 4px;
+        }
+    }
+}

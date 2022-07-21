@@ -9,7 +9,7 @@ function Header() {
 				<h1 className='sr-only'>Argent Bank</h1>
 			</Link>
 			<nav>
-				<Link to='/login' className='header__login'>
+				<Link to='/sign-in' className='header__login'>
 					<i className='fa-solid fa-circle-user'></i>
 					<p className='header__login__text'>Sign In</p>
 				</Link>

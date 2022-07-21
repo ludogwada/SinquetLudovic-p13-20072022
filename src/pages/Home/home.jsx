@@ -1,5 +1,6 @@
 import Banner from '../../components/Banner/banner';
 import Feature from '../../components/Features/feature';
+import Footer from '../../components/Footer/footer';
 import Header from '../../components/Header/header';
 import features from '../../data/features.json';
 
@@ -20,6 +21,7 @@ function Home() {
 					);
 				})}
 			</article>
+			<Footer />
 		</main>
 	);
 }

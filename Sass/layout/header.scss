@@ -1,29 +1,32 @@
-.header{
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
-    
-    &__link{
+
+    &__link {
         display: flex;
         align-items: center;
-        
-        &__logo{
+
+        &__logo {
             max-width: 100%;
             width: 200px;
         }
     }
-    &__login{
+
+    &__login {
         display: flex;
+        align-items: center;
         text-decoration: none;
         color: $colorBlue;
         margin-right: 0.5rem;
         font-weight: bold;
-        :hover{
+
+        :hover {
             text-decoration: underline;
         }
-        
-        &__text{
+
+        &__text {
             margin-left: 4px;
         }
     }

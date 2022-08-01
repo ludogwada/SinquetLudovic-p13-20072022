@@ -613,5 +613,29 @@ template {
     width: 200px;
   }
 }
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 90px;
+  margin-top: 70px;
+  margin-left: 100px;
+  margin-right: 100px;
+  text-align: center;
+}
+.error__text {
+  font-size: 288px;
+  font-weight: 700;
+  line-height: 410.69px;
+  margin-bottom: 20px;
+}
+
+.redirection {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.redirection__h4 {
+  text-decoration: underline;
+}
 
 /*# sourceMappingURL=index.css.map */

@@ -1,45 +1,32 @@
+import { useSelector } from 'react-redux';
+import transaction from '../../data/transactions.json';
+import Card from '../../components/Card/card';
+
 function User() {
+	const firstName = useSelector((state) => state.connect.firstName);
+	const lastName = useSelector((state) => state.connect.lastName);
+
 	return (
 		<main className='main bg-dark'>
 			<div className='user-header'>
 				<h1>
 					Welcome back
 					<br />
-					Tony Jarvis!
+					{firstName + ' ' + lastName}!
 				</h1>
 				<button className='edit-button'>Edit Name</button>
 			</div>
 			<h2 className='sr-only'>Accounts</h2>
-			<section className='account'>
-				<div className='account-content-wrapper'>
-					<h3 className='account-title'>Argent Bank Checking (x8349)</h3>
-					<p className='account-amount'>$2,082.79</p>
-					<p className='account-amount-description'>Available Balance</p>
-				</div>
-				<div className='account-content-wrapper cta'>
-					<button className='transaction-button'>View transactions</button>
-				</div>
-			</section>
-			<section className='account'>
-				<div className='account-content-wrapper'>
-					<h3 className='account-title'>Argent Bank Savings (x6712)</h3>
-					<p className='account-amount'>$10,928.42</p>
-					<p className='account-amount-description'>Available Balance</p>
-				</div>
-				<div className='account-content-wrapper cta'>
-					<button className='transaction-button'>View transactions</button>
-				</div>
-			</section>
-			<section className='account'>
-				<div className='account-content-wrapper'>
-					<h3 className='account-title'>Argent Bank Credit Card (x8349)</h3>
-					<p className='account-amount'>$184.30</p>
-					<p className='account-amount-description'>Current Balance</p>
-				</div>
-				<div className='account-content-wrapper cta'>
-					<button className='transaction-button'>View transactions</button>
-				</div>
-			</section>
+			{transaction.map((account) => {
+				return (
+					<Card
+						key={account.id}
+						name={account.name}
+						amount={account.amount}
+						balance={account.balance}
+					/>
+				);
+			})}
 		</main>
 	);
 }

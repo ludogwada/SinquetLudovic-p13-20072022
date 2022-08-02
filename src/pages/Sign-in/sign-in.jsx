@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserToken, getUserProfile } from '../../utils/Api/callApi';
 import { getToken, getUser } from '../../utils/Slice/slice';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 	const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ function Login() {
 	const [rememberMe, setRememberMe] = useState(false);
 	const dispatch = useDispatch();
 	const userToken = useSelector((state) => state.connect.token);
+	const goProfile = useNavigate();
 
 	const userProfile = async () => {
 		const responseApi = await getUserProfile(userToken);
@@ -21,7 +23,6 @@ function Login() {
 			);
 		}
 	};
-	console.log(userToken);
 
 	const submit = async () => {
 		if (email && password) {
@@ -37,6 +38,7 @@ function Login() {
 	useEffect(() => {
 		if (userToken) {
 			userProfile();
+			goProfile('/user');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userToken]);

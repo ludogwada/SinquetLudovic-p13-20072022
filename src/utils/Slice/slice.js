@@ -22,8 +22,15 @@ const connectSlice = createSlice({
 				token: `${action.payload.token}`,
 			};
 		},
+		getUser: (state, action) => {
+			return {
+				...state,
+				firstName: action.payload.firstName,
+				lastName: action.payload.lastName,
+			};
+		},
 	},
 });
-export const { getToken } = connectSlice.actions;
+export const { getToken, getUser } = connectSlice.actions;
 
 export default connectSlice.reducer;

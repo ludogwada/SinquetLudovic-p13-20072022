@@ -17,4 +17,19 @@ async function getUserToken(params) {
 	}
 }
 
-export default getUserToken;
+async function getUserProfile(token) {
+	try {
+		const response = await apiUrl.post(
+			'/user/profile',
+			{},
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
+		return response.data.body;
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export { getUserToken, getUserProfile };

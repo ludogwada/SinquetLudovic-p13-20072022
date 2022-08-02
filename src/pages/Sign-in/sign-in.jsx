@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getUserToken from '../../utils/Api/callApi';
-import { getToken } from '../../utils/Slice/slice';
+import { getUserToken, getUserProfile } from '../../utils/Api/callApi';
+import { getToken, getUser } from '../../utils/Slice/slice';
 
 function Login() {
 	const [email, setEmail] = useState('');
@@ -9,6 +9,19 @@ function Login() {
 	const [rememberMe, setRememberMe] = useState(false);
 	const dispatch = useDispatch();
 	const userToken = useSelector((state) => state.connect.token);
+
+	const userProfile = async () => {
+		const responseApi = await getUserProfile(userToken);
+		if (responseApi) {
+			dispatch(
+				getUser({
+					firstName: responseApi.firstName,
+					lastName: responseApi.lastName,
+				})
+			);
+		}
+	};
+	console.log(userToken);
 
 	const submit = async () => {
 		if (email && password) {
@@ -21,7 +34,12 @@ function Login() {
 		}
 	};
 
-	console.log(userToken);
+	useEffect(() => {
+		if (userToken) {
+			userProfile();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userToken]);
 
 	return (
 		<main className='main bg-dark'>

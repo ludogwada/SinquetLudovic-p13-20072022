@@ -1,0 +1,20 @@
+	[
+		{
+			"id": "1",
+			"name": "Checking (x8349)",
+			"amount": "$2,082.79",
+			"balance": "Available"
+		},
+		{
+			"id": 2,
+			"name": "Savings (x6712)",
+			"amount": "$10,928.42",
+			"balance": "Balance"
+		},
+		{
+			"id": 3,
+			"name": "Credit Card (x8349)",
+			"amount": "$184.30",
+			"balance": "Balance"
+		}
+	]

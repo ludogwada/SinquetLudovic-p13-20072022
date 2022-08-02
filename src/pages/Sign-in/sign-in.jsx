@@ -1,20 +1,27 @@
 import { useState } from 'react';
-import userToken from '../../utils/Api/callApi';
+import { useDispatch, useSelector } from 'react-redux';
+import getUserToken from '../../utils/Api/callApi';
+import { getToken } from '../../utils/Slice/slice';
 
 function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [rememberMe, setRememberMe] = useState(false);
+	const dispatch = useDispatch();
+	const userToken = useSelector((state) => state.connect.token);
 
 	const submit = async () => {
 		if (email && password) {
-			const responseApi = await userToken({ email, password });
+			const responseApi = await getUserToken({ email, password });
 			if (responseApi) {
-				console.log(responseApi);
-			} else {
-				console.log(responseApi);
+				dispatch(
+					getToken({ token: responseApi, email: email, rememberMe: rememberMe })
+				);
 			}
 		}
 	};
+
+	console.log(userToken);
 
 	return (
 		<main className='main bg-dark'>
@@ -42,7 +49,13 @@ function Login() {
 					</div>
 					<div className='input-remember'>
 						<label htmlFor='remember-me'>Remember me</label>
-						<input type='checkbox' id='remember-me' />
+						<input
+							type='checkbox'
+							id='remember-me'
+							defaultChecked={false}
+							value={rememberMe}
+							onChange={(e) => setRememberMe(e.target.checked)}
+						/>
 					</div>
 					<button type='button' className='sign-in-button' onClick={submit}>
 						Sign In

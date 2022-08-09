@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserToken, getUserProfile } from '../../utils/Api/callApi';
+import callApi from '../../utils/Api/callApi';
 import { getToken, getUser } from '../../utils/Slice/slice';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ function Login() {
 	const goProfile = useNavigate();
 
 	const userProfile = async () => {
-		const responseApi = await getUserProfile(userToken);
+		const responseApi = await callApi.getUserProfile(userToken);
 		if (responseApi) {
 			dispatch(
 				getUser({
@@ -26,7 +26,7 @@ function Login() {
 
 	const submit = async () => {
 		if (email && password) {
-			const responseApi = await getUserToken({ email, password });
+			const responseApi = await callApi.getUserToken({ email, password });
 			if (responseApi) {
 				dispatch(
 					getToken({ token: responseApi, email: email, rememberMe: rememberMe })

@@ -24,6 +24,12 @@ html {
 /**
  * Remove the margin in all browsers.
  */
+html,
+body,
+#__next,
+#root {
+  min-height: 100vh;
+}
 
 body {
   margin: 0;

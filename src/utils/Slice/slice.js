@@ -29,6 +29,12 @@ const connectSlice = createSlice({
 				lastName: action.payload.lastName,
 			};
 		},
+		signOut: (state, action) => {
+			return {
+				...state,
+				token: null,
+			};
+		},
 	},
 });
 export const { getToken, getUser } = connectSlice.actions;

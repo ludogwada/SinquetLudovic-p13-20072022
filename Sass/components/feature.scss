@@ -16,3 +16,11 @@
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
+
+@media (max-width: 719px) {
+    .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

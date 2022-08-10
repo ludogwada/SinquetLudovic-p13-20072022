@@ -4,10 +4,18 @@ import callApi from '../../utils/Api/callApi';
 import { getToken, getUser } from '../../utils/Slice/slice';
 import { useNavigate } from 'react-router-dom';
 
+let emailStorage = '';
+let rememberMeChecked = '';
+
+if (sessionStorage.email && sessionStorage.rememberMe !== '') {
+	emailStorage = sessionStorage.getItem('email');
+	rememberMeChecked = JSON.parse(sessionStorage.getItem('rememberMe'));
+}
+
 function Login() {
-	const [email, setEmail] = useState('');
+	const [email, setEmail] = useState(emailStorage);
 	const [password, setPassword] = useState('');
-	const [rememberMe, setRememberMe] = useState(false);
+	const [rememberMe, setRememberMe] = useState(rememberMeChecked);
 	const dispatch = useDispatch();
 	const userToken = useSelector((state) => state.connect.token);
 	const goProfile = useNavigate();
@@ -28,9 +36,11 @@ function Login() {
 		if (email && password) {
 			const responseApi = await callApi.getUserToken({ email, password });
 			if (responseApi) {
-				dispatch(
-					getToken({ token: responseApi, email: email, rememberMe: rememberMe })
-				);
+				dispatch(getToken({ token: responseApi, email: email }));
+			}
+			if (rememberMe !== '') {
+				sessionStorage.email = email;
+				sessionStorage.rememberMe = rememberMe;
 			}
 		}
 	};
@@ -72,8 +82,8 @@ function Login() {
 						<input
 							type='checkbox'
 							id='remember-me'
-							defaultChecked={false}
-							value={rememberMe}
+							checked={rememberMe}
+							value='rememberMe'
 							onChange={(e) => setRememberMe(e.target.checked)}
 						/>
 					</div>

@@ -513,9 +513,11 @@ template {
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  text-decoration: underline;
 }
 
 .sign-in-content {
@@ -553,6 +555,11 @@ template {
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+
+.errorMessage {
+  padding-top: 5px;
+  color: red;
 }
 
 .account {

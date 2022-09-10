@@ -16,6 +16,7 @@ function Login() {
 	const [email, setEmail] = useState(emailStorage);
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(rememberMeChecked);
+	const [error, setError] = useState(false);
 	const dispatch = useDispatch();
 	const userToken = useSelector((state) => state.connect.token);
 	const goProfile = useNavigate();
@@ -42,6 +43,8 @@ function Login() {
 				sessionStorage.email = email;
 				sessionStorage.rememberMe = rememberMe;
 			}
+		} else {
+			setError(true);
 		}
 	};
 
@@ -60,7 +63,7 @@ function Login() {
 				<h1>Sign In</h1>
 				<form>
 					<div className='input-wrapper'>
-						<label htmlFor='email'>email</label>
+						<label htmlFor='email'>Username</label>
 						<input
 							type='email'
 							id='email'
@@ -90,6 +93,7 @@ function Login() {
 					<button type='button' className='sign-in-button' onClick={submit}>
 						Sign In
 					</button>
+					{error ? <span className='errorMessage'>Invalid form</span> : null}
 				</form>
 			</section>
 		</main>

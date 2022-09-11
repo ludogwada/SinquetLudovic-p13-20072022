@@ -1,14 +1,15 @@
 import logo from '../../assets/argentBankLogo.png';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '../../utils/Slice/slice';
 
 function Header() {
 	const isConnected = useSelector((state) => state.connect.isConnected);
 	const firstName = useSelector((state) => state.connect.firstName);
 	const dispatch = useDispatch();
 
-	function signOut() {
-		dispatch();
+	function SignOut() {
+		dispatch(signOut());
 	}
 
 	return (
@@ -27,7 +28,7 @@ function Header() {
 					<nav className='header__login'>
 						<i className='fa-solid fa-circle-user'></i>
 						{firstName}
-						<Link to='/' onClick={() => signOut()} className='header__login'>
+						<Link to='/' onClick={() => SignOut()} className='header__login'>
 							<i className='fa fa-sign-out'></i>
 							<p className='header__login__text'>Sign Out</p>
 						</Link>

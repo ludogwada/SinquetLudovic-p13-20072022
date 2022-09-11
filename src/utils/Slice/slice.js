@@ -30,11 +30,15 @@ const connectSlice = createSlice({
 		signOut: (state, action) => {
 			return {
 				...state,
+				email: null,
+				firstName: null,
+				lastName: null,
+				isConnected: false,
 				token: null,
 			};
 		},
 	},
 });
-export const { getToken, getUser } = connectSlice.actions;
+export const { getToken, getUser, signOut } = connectSlice.actions;
 
 export default connectSlice.reducer;

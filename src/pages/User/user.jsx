@@ -31,72 +31,73 @@ function User() {
 		);
 		setDisplayEditUser(!displayEditUser);
 	};
-
-	return (
-		<main className='main bg-dark mainUser'>
-			<div className='user-header'>
-				{displayEditUser ? (
-					<>
-						<h1>Welcome back</h1>
-						<form>
-							<div className='labelEdit'>
-								<label htmlFor='firstName'>
-									<input
-										placeholder='First Name'
-										type='text'
-										onChange={(e) => setFirstName(e.target.value)}
-									/>
-								</label>
-								<label htmlFor='lastName'>
-									<input
-										placeholder='Last Name'
-										type='text'
-										onChange={(e) => setLastName(e.target.value)}
-									/>
-								</label>
-							</div>
-							<div>
-								<button
-									className='edit-button'
-									type='button'
-									onClick={() => displayFormEdit()}>
-									Cancel
-								</button>
-								<button
-									className='edit-button'
-									type='button'
-									onClick={() => editUser()}>
-									Save
-								</button>
-							</div>
-						</form>
-					</>
-				) : (
-					<>
-						<h1>
-							Welcome back
-							<br />
-							{stateFirstName + ' ' + stateLastName}!
-						</h1>
-						<button className='edit-button' onClick={() => displayFormEdit()}>
-							Edit Name
-						</button>
-					</>
-				)}
-			</div>
-			<h2 className='sr-only'>Accounts</h2>
-			{transaction.map((account) => {
-				return (
-					<Card
-						key={account.id}
-						name={account.name}
-						amount={account.amount}
-						balance={account.balance}
-					/>
-				);
-			})}
-		</main>
-	);
+	if (tokenUser) {
+		return (
+			<main className='main bg-dark mainUser'>
+				<div className='user-header'>
+					{displayEditUser ? (
+						<>
+							<h1>Welcome back</h1>
+							<form>
+								<div className='labelEdit'>
+									<label htmlFor='firstName'>
+										<input
+											placeholder='First Name'
+											type='text'
+											onChange={(e) => setFirstName(e.target.value)}
+										/>
+									</label>
+									<label htmlFor='lastName'>
+										<input
+											placeholder='Last Name'
+											type='text'
+											onChange={(e) => setLastName(e.target.value)}
+										/>
+									</label>
+								</div>
+								<div>
+									<button
+										className='edit-button'
+										type='button'
+										onClick={() => displayFormEdit()}>
+										Cancel
+									</button>
+									<button
+										className='edit-button'
+										type='button'
+										onClick={() => editUser()}>
+										Save
+									</button>
+								</div>
+							</form>
+						</>
+					) : (
+						<>
+							<h1>
+								Welcome back
+								<br />
+								{stateFirstName + ' ' + stateLastName}!
+							</h1>
+							<button className='edit-button' onClick={() => displayFormEdit()}>
+								Edit Name
+							</button>
+						</>
+					)}
+				</div>
+				<h2 className='sr-only'>Accounts</h2>
+				{transaction.map((account) => {
+					return (
+						<Card
+							key={account.id}
+							name={account.name}
+							amount={account.amount}
+							balance={account.balance}
+						/>
+					);
+				})}
+			</main>
+		);
+	}
 }
 
 export default User;

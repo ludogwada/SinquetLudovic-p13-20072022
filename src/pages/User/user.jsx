@@ -4,6 +4,7 @@ import Card from '../../components/Card/card';
 import { useState } from 'react';
 import callApi from '../../utils/Api/callApi';
 import { getUser } from '../../utils/Slice/slice';
+import { Navigate } from 'react-router-dom';
 
 function User() {
 	const stateFirstName = useSelector((state) => state.connect.firstName);
@@ -97,6 +98,8 @@ function User() {
 				})}
 			</main>
 		);
+	} else {
+		return <Navigate to='*' />;
 	}
 }
 

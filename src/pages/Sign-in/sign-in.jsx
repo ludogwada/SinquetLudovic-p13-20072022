@@ -16,7 +16,9 @@ function Login() {
 	const [email, setEmail] = useState(emailStorage);
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(rememberMeChecked);
-	const [error, setError] = useState(false);
+	const [errorForm, setErrorForm] = useState(false);
+	const [errorEmail, setErrorEmail] = useState(false);
+	const [errorPwd, setErrorPwd] = useState(false);
 	const dispatch = useDispatch();
 	const userToken = useSelector((state) => state.connect.token);
 	const goProfile = useNavigate();
@@ -33,18 +35,37 @@ function Login() {
 		}
 	};
 
+	const remember = () => {
+		if (rememberMe !== '') {
+			sessionStorage.email = email;
+			sessionStorage.rememberMe = rememberMe;
+		}
+	};
+
+	const fieldsValided = () => {
+		if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+			setErrorEmail(true);
+		} else {
+			setErrorEmail(false);
+		}
+		if (password.length < 6) {
+			setErrorPwd(true);
+		} else {
+			setErrorPwd(false);
+		}
+	};
+
 	const submit = async () => {
-		if (email && password) {
+		fieldsValided();
+
+		try {
 			const responseApi = await callApi.getUserToken({ email, password });
 			if (responseApi) {
 				dispatch(getToken({ token: responseApi, email: email }));
 			}
-			if (rememberMe !== '') {
-				sessionStorage.email = email;
-				sessionStorage.rememberMe = rememberMe;
-			}
-		} else {
-			setError(true);
+			remember();
+		} catch (error) {
+			setErrorForm(true);
 		}
 	};
 
@@ -66,19 +87,27 @@ function Login() {
 						<label htmlFor='email'>Username</label>
 						<input
 							type='email'
+							required
 							id='email'
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
+						{errorEmail ? (
+							<span className='errorMessage'>incorrect email</span>
+						) : null}
 					</div>
 					<div className='input-wrapper'>
 						<label htmlFor='password'>Password</label>
 						<input
 							type='password'
+							required
 							id='password'
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
+						{errorPwd ? (
+							<span className='errorMessage'>incorrect password</span>
+						) : null}
 					</div>
 					<div className='input-remember'>
 						<label htmlFor='remember-me'>Remember me</label>
@@ -93,7 +122,9 @@ function Login() {
 					<button type='button' className='sign-in-button' onClick={submit}>
 						Sign In
 					</button>
-					{error ? <span className='errorMessage'>Invalid form</span> : null}
+					{errorForm ? (
+						<span className='errorMessage'>Authentication Failure</span>
+					) : null}
 				</form>
 			</section>
 		</main>

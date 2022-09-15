@@ -20,17 +20,19 @@ function User() {
 	};
 
 	const editUser = async () => {
-		const responseApi = await callApi.putUser(tokenUser, {
-			firstName,
-			lastName,
-		});
-		dispatch(
-			getUser({
-				firstName: responseApi.firstName,
-				lastName: responseApi.lastName,
-			})
-		);
-		setDisplayEditUser(!displayEditUser);
+		if (lastName || firstName === '') {
+			const responseApi = await callApi.putUser(tokenUser, {
+				firstName,
+				lastName,
+			});
+			dispatch(
+				getUser({
+					firstName: responseApi.firstName,
+					lastName: responseApi.lastName,
+				})
+			);
+			setDisplayEditUser(!displayEditUser);
+		}
 	};
 	if (tokenUser) {
 		return (
